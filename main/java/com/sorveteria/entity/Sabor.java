@@ -1,14 +1,13 @@
 @Entity
-public class Fornecedor {
+public class Sabor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
-    private String cnpj;
-    private String telefone;
-    private String email;
-    private String endereco;
+    private String categoria;
+    private String descricao;
+    private boolean emEstoque;
 
     // Getters e Setters
 }
