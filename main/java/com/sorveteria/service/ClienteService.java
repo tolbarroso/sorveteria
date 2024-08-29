@@ -1,30 +1,36 @@
+package com.sorveteria.service;
+
+import com.sorveteria.entity.Cliente;
+import com.sorveteria.repository.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ClienteService {
+
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Cliente adicionarCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
-    }
-
-    public Cliente editarCliente(Long id, Cliente clienteAtualizado) {
-        Cliente cliente = clienteRepository.findById(id).orElseThrow();
-        cliente.setNome(clienteAtualizado.getNome());
-        cliente.setTelefone(clienteAtualizado.getTelefone());
-        cliente.setEmail(clienteAtualizado.getEmail());
-        cliente.setPreferencias(clienteAtualizado.getPreferencias());
-        return clienteRepository.save(cliente);
-    }
-
-    public void removerCliente(Long id) {
-        clienteRepository.deleteById(id);
-    }
-
-    public List<Cliente> listarClientes() {
+    public List<Cliente> findAll() {
         return clienteRepository.findAll();
     }
 
-    public Cliente buscarClientePorId(Long id) {
-        return clienteRepository.findById(id).orElseThrow();
+    public Optional<Cliente> findById(Long id) {
+        return clienteRepository.findById(id);
+    }
+
+    public Cliente save(Cliente cliente) {
+        return clienteRepository.save(cliente);
+    }
+
+    public Cliente update(Cliente cliente) {
+        return clienteRepository.save(cliente);
+    }
+
+    public void deleteById(Long id) {
+        clienteRepository.deleteById(id);
     }
 }

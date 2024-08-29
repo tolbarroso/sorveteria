@@ -1,28 +1,36 @@
+package com.sorveteria.service;
+
+import com.sorveteria.entity.Venda;
+import com.sorveteria.repository.VendaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class VendaService {
+
     @Autowired
     private VendaRepository vendaRepository;
 
-    @Autowired
-    private SaborRepository saborRepository;
-
-    public Venda registrarVenda(Venda venda) {
-        Sabor sabor = saborRepository.findById(venda.getSabor().getId()).orElseThrow();
-        
-        if (sabor.isEmEstoque()) {
-            sabor.setEmEstoque(false); // Assumindo que uma venda consome todo o estoque, ajustar conforme necessário
-            saborRepository.save(sabor);
-            return vendaRepository.save(venda);
-        } else {
-            throw new IllegalStateException("Sabor fora de estoque");
-        }
-    }
-
-    public List<Venda> listarVendas() {
+    public List<Venda> findAll() {
         return vendaRepository.findAll();
     }
 
-    public Venda buscarVendaPorId(Long id) {
-        return vendaRepository.findById(id).orElseThrow();
+    public Optional<Venda> findById(Long id) {
+        return vendaRepository.findById(id);
+    }
+
+    public Venda save(Venda venda) {
+        return vendaRepository.save(venda);
+    }
+
+    public Venda update(Venda venda) {
+        return vendaRepository.save(venda);
+    }
+
+    public void deleteById(Long id) {
+        vendaRepository.deleteById(id);
     }
 }

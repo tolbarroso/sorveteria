@@ -1,31 +1,36 @@
+package com.sorveteria.service;
+
+import com.sorveteria.entity.Fornecedor;
+import com.sorveteria.repository.FornecedorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FornecedorService {
+
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
-    public Fornecedor adicionarFornecedor(Fornecedor fornecedor) {
-        return fornecedorRepository.save(fornecedor);
-    }
-
-    public Fornecedor editarFornecedor(Long id, Fornecedor fornecedorAtualizado) {
-        Fornecedor fornecedor = fornecedorRepository.findById(id).orElseThrow();
-        fornecedor.setNome(fornecedorAtualizado.getNome());
-        fornecedor.setCnpj(fornecedorAtualizado.getCnpj());
-        fornecedor.setTelefone(fornecedorAtualizado.getTelefone());
-        fornecedor.setEmail(fornecedorAtualizado.getEmail());
-        fornecedor.setEndereco(fornecedorAtualizado.getEndereco());
-        return fornecedorRepository.save(fornecedor);
-    }
-
-    public void removerFornecedor(Long id) {
-        fornecedorRepository.deleteById(id);
-    }
-
-    public List<Fornecedor> listarFornecedores() {
+    public List<Fornecedor> findAll() {
         return fornecedorRepository.findAll();
     }
 
-    public Fornecedor buscarFornecedorPorId(Long id) {
-        return fornecedorRepository.findById(id).orElseThrow();
+    public Optional<Fornecedor> findById(Long id) {
+        return fornecedorRepository.findById(id);
+    }
+
+    public Fornecedor save(Fornecedor fornecedor) {
+        return fornecedorRepository.save(fornecedor);
+    }
+
+    public Fornecedor update(Fornecedor fornecedor) {
+        return fornecedorRepository.save(fornecedor);
+    }
+
+    public void deleteById(Long id) {
+        fornecedorRepository.deleteById(id);
     }
 }
