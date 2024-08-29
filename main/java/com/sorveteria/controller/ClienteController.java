@@ -1,22 +1,23 @@
+package com.sorveteria.controller;
+
+import com.sorveteria.model.Cliente;
+import com.sorveteria.service.ClienteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
+
     @Autowired
     private ClienteService clienteService;
 
     @PostMapping
-    public Cliente adicionarCliente(@RequestBody Cliente cliente) {
-        return clienteService.adicionarCliente(cliente);
-    }
-
-    @PutMapping("/{id}")
-    public Cliente editarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
-        return clienteService.editarCliente(id, cliente);
-    }
-
-    @DeleteMapping("/{id}")
-    public void removerCliente(@PathVariable Long id) {
-        clienteService.removerCliente(id);
+    public Cliente criarCliente(@RequestBody Cliente cliente) {
+        return clienteService.salvarCliente(cliente);
     }
 
     @GetMapping
@@ -25,7 +26,20 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public Cliente buscarClientePorId(@PathVariable Long id) {
-        return clienteService.buscarClientePorId(id);
+    public ResponseEntity<Cliente> buscarClientePorId(@PathVariable Long id) {
+        Cliente cliente = clienteService.buscarClientePorId(id);
+        return ResponseEntity.ok(cliente);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+        Cliente clienteAtualizado = clienteService.atualizarCliente(id, cliente);
+        return ResponseEntity.ok(clienteAtualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
+        clienteService.deletarCliente(id);
+        return ResponseEntity.noContent().build();
     }
 }

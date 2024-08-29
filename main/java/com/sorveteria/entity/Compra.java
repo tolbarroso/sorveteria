@@ -1,16 +1,31 @@
+package com.sorveteria.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.Date;
+import java.util.List;
+
+@Data
 @Entity
 public class Compra {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private Fornecedor fornecedor;
+    private Cliente cliente;
 
-    private String item;
+    @ManyToMany
+    private List<Sabor> sabores;
+
+    private String tamanho; // Pequeno, Médio, Grande
+
     private int quantidade;
-    private double valorTotal;
-    private LocalDate dataCompra;
 
-    // Getters e Setters
+    private double total;
+
+    private String metodoPagamento;
+
+    private Date dataCompra;
 }

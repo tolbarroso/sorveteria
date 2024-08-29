@@ -1,5 +1,14 @@
+package com.sorveteria.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.Date;
+import java.util.List;
+
+@Data
 @Entity
 public class Venda {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -7,14 +16,16 @@ public class Venda {
     @ManyToOne
     private Cliente cliente;
 
-    @ManyToOne
-    private Sabor sabor;
+    @ManyToMany
+    private List<Sabor> sabores;
 
-    private String tamanho;
+    private String tamanho; // Pequeno, Médio, Grande
+
     private int quantidade;
-    private double precoTotal;
+
+    private double total;
 
     private String metodoPagamento;
 
-    // Getters e Setters
+    private Date dataVenda;
 }
